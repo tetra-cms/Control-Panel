@@ -1,6 +1,9 @@
-<script>
+<script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 useHead({
-    title: "Tetra - Admin panel",
+    title: t("header.title"),
 });
 </script>
 
