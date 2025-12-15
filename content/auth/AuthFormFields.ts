@@ -19,11 +19,6 @@ export const AuthFormFields : Array<IFormElement> = [
         placeholder: t("auth.buttons.login"),
         type: FieldType.Button
     } as IFormElement,
-    {
-        placeholder: t("auth.message.register"),
-        type: FieldType.Link,
-        route: "/register"
-    } as IFormElement
 ];
 
 export interface AuthSubmitData {
