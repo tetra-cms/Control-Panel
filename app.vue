@@ -16,7 +16,7 @@ provide("deviceType", getDeviceInfo());
 
 const { t } = useI18n()
 useHead({
-    title: t("header.title"),
+    title: t("admin.header.title"),
 });
 </script>
 

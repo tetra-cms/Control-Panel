@@ -6,7 +6,9 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-    }
+    },
+    baseURL: '/admin/',
+    buildAssetsDir: '/admin/_nuxt/'
   },
   tailwindcss: {
     configPath: '~/tailwind.config.ts'

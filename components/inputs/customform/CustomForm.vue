@@ -9,6 +9,7 @@ import type IFormElement from '~/types/form/FormField';
 
 const props = defineProps<{
     title: string,
+    subtitle?: string,
     fields: Array<IFormElement>
 }>();
 
@@ -37,7 +38,8 @@ const deviceType = inject('deviceType');
         :class="deviceType == UserDeviceTypes.Desktop ? 'border-secondary-wrapper-light border-[1px]' : ''"
         @submit.prevent="onSubmit">
 
-        <h2 class="text-[24px] text-center font-bold mb-[40px]">{{ title }}</h2>
+        <h2 class="text-[24px] text-center font-bold mb-[10px]">{{ title }}</h2>
+        <p class="text-center" v-if="subtitle">{{ subtitle }}</p>
 
         <ul>
             <li class="my-[20px]" v-for="field in props.fields">
