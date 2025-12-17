@@ -7,12 +7,13 @@ module.exports = {
                     'secondary': '#252525'
                 },
                 'secondary': {
-                    'primary': '#FFFFFF',
-                    'secondary': '#F9F8F8',
+                    'primary': '#F2F5FA',
+                    'secondary': '#eeeded',
                     'light': '#EFEFEF',
                     'wrapper': {
                         'dark': '#000000',
-                        'light': '#959595'
+                        'invert': '#ffffff',
+                        'light': '#9e9d9dff'
                     }
                 },
                 'tomato': {
