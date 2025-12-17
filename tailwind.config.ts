@@ -10,10 +10,11 @@ module.exports = {
                     'primary': '#F2F5FA',
                     'secondary': '#eeeded',
                     'light': '#EFEFEF',
+                    'darklight': '#dddddd',
                     'wrapper': {
                         'dark': '#000000',
                         'invert': '#ffffff',
-                        'light': '#9e9d9dff'
+                        'light': '#9e9d9d'
                     }
                 },
                 'tomato': {

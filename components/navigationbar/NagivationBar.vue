@@ -11,7 +11,6 @@ const props = defineProps<{
 
 <template>
     <div class="w-[250px] fixed left-0 top-0 bottom-0 h-full shadow-lg flex justify-between flex-col items-center">
-
         <div class="w-full">
             <div class="p-[10px] flex flex-row items-center">
                 <TetraIcon class="w-[48px] h-[48px]"/>
