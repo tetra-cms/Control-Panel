@@ -1,10 +1,27 @@
+import { Roles, type APIUserInfoRepsonse } from "~/content/api/ApiUserInfoResponse";
+
 /**
  * Composable for redirecting authorized users from pages
  */
-export default function useRedirectAuthorized() {
+export default async function useRedirectAuthorized() {
     const accessToken = useCookie("access_token");
     if (accessToken && accessToken.value?.length)
     {
-        navigateTo("/dashboard")
+        const response: APIUserInfoRepsonse = await $fetch('/user/profile', {
+            baseURL: useRuntimeConfig().public.baseURL,
+            method: 'GET',
+            onResponse: function(event) {
+                if (!event.response.ok
+                    || event.error) {
+                        navigateTo("/");
+                        return;
+                    }
+            }
+        });
+
+        if (response.role = Roles.ADMIN)
+        {
+            navigateTo("/dashboard");
+        }
     }
 }

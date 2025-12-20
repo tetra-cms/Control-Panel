@@ -19,7 +19,7 @@ const props = defineProps<{
             <p class="text-[10pt] w-full pl-[20px] pt-[20px] text-secondary-wrapper-light">{{ $t("admin.menu.title") }}</p>
 
             <ul class="flex w-full flex-col justify-center py-[20px]">
-                <li v-for="navbarItem in props.elements" :class="'w-full p-[15px] px-[20px] transition-all duration-300 hover:bg-secondary-wrapper-light ' + (navbarItem.route == $route.path ? 'bg-secondary-wrapper-dark' : '[&>*]:fill-secondary-wrapper-dark')">
+                <li v-for="navbarItem in props.elements" :class="'w-full p-[15px] px-[20px] transition-all duration-300 ' + (navbarItem.route == $route.path ? 'bg-secondary-wrapper-dark' : '[&>*]:fill-secondary-wrapper-dar hover:bg-secondary-wrapper-light')">
                     <NuxtLink :to="navbarItem.route" class="flex justify-start flex-row items-center">
                         <component 
                         :class="'w-[32px] h-[32px] mr-[5px] ' + (navbarItem.route == $route.path ? '[&>*]:fill-secondary-wrapper-invert' : '[&>*]:fill-secondary-wrapper-dark')" :is="navbarItem.icon"/>
