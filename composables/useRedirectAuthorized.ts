@@ -10,6 +10,9 @@ export default async function useRedirectAuthorized() {
         const response: APIUserInfoRepsonse = await $fetch('/user/profile', {
             baseURL: useRuntimeConfig().public.baseURL,
             method: 'GET',
+            headers: {
+                "Authorization": "Bearer " + accessToken.value
+            },
             onResponse: function(event) {
                 if (!event.response.ok
                     || event.error) {

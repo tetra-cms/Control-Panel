@@ -1,6 +1,6 @@
 export enum Roles {
-    USER = "user",
-    ADMIN = "admin"
+    USER = "USER",
+    ADMIN = "ADMIN"
 }
 
 export interface APIUserInfoRepsonse {
