@@ -10,16 +10,16 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="w-[250px] fixed left-0 top-0 bottom-0 h-full shadow-lg flex justify-between flex-col items-center">
+    <nav class="w-[250px] fixed left-0 top-0 bottom-0 h-full shadow-lg flex justify-between rounded-[30px] flex-col items-center bg-secondary-primary mx-[20px]">
         <div class="w-full">
-            <div class="p-[10px] flex flex-row items-center">
+            <NuxtLink link="/" class="p-[10px] flex flex-row items-center">
                 <TetraIcon class="w-[48px] h-[48px]"/>
                 <h1 class="text-[20pt] font-black">TETRA</h1>
-            </div>
-            <p class="text-[10pt] w-full pl-[20px] pt-[20px] text-secondary-wrapper-light">{{ $t("admin.menu.title") }}</p>
+            </NuxtLink>
+            <p class="text-[12pt] w-full pl-[20px] pt-[20px] text-secondary-wrapper-light">{{ $t("admin.menu.title") }}</p>
 
             <ul class="flex w-full flex-col justify-center py-[20px]">
-                <li v-for="navbarItem in props.elements" :class="'w-full p-[15px] px-[20px] transition-all duration-300 ' + (navbarItem.route == $route.path ? 'bg-secondary-wrapper-dark' : '[&>*]:fill-secondary-wrapper-dar hover:bg-secondary-wrapper-light')">
+                <li v-for="navbarItem in props.elements" :class="'w-full rounded-[15px] p-[15px] px-[20px] transition-all duration-300 ' + (navbarItem.route == $route.path ? 'bg-secondary-wrapper-dark' : '[&>*]:fill-secondary-wrapper-dar hover:bg-secondary-wrapper-light')">
                     <NuxtLink :to="navbarItem.route" class="flex justify-start flex-row items-center">
                         <component 
                         :class="'w-[32px] h-[32px] mr-[5px] ' + (navbarItem.route == $route.path ? '[&>*]:fill-secondary-wrapper-invert' : '[&>*]:fill-secondary-wrapper-dark')" :is="navbarItem.icon"/>
@@ -34,5 +34,5 @@ const props = defineProps<{
             <LeaveIcon class="w-[32px] h-[48px]"/>
             <p class="text-[12pt] font-medium">{{ $t("admin.menu.leave") }}</p>
         </a>
-    </div>
+    </nav>
 </template>
