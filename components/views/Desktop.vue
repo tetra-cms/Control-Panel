@@ -4,6 +4,8 @@
 
 <template>
     <div class="w-full h-[100vh]">
-      <NuxtPage/>
+      <NuxtLayout>
+        <NuxtPage/>
+      </NuxtLayout>
     </div>
 </template>

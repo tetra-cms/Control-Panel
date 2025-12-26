@@ -12,7 +12,7 @@ const props = defineProps<{
 <template>
     <nav class="w-[250px] fixed left-0 top-0 bottom-0 h-full shadow-lg flex justify-between rounded-[30px] flex-col items-center bg-secondary-primary mx-[20px]">
         <div class="w-full">
-            <NuxtLink link="/" class="p-[10px] flex flex-row items-center">
+            <NuxtLink link="../" class="p-[10px] flex flex-row items-center">
                 <TetraIcon class="w-[48px] h-[48px]"/>
                 <h1 class="text-[20pt] font-black">TETRA</h1>
             </NuxtLink>

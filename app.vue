@@ -21,7 +21,7 @@ useHead({
 </script>
 
 <template>
-  <div v-if="getDeviceInfo() == UserDeviceTypes.Desktop">
+    <div v-if="getDeviceInfo() == UserDeviceTypes.Desktop">
         <Desktop/>
     </div>
 
