@@ -31,7 +31,7 @@ const props = defineProps<{
                 </ul>
             </div>
             
-            <a href="/" class="flex flex-row items-center">
+            <a href="/" class="flex flex-row items-center mb-[10px]">
                 <LeaveIcon class="w-[32px] h-[48px]"/>
                 <p class="text-[12pt] font-medium">{{ $t("admin.menu.leave") }}</p>
             </a>

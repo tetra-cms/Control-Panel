@@ -9,10 +9,6 @@ import { PeriodGap } from '~/types/statblock/PeriodGap';
 import { PeriodGapList } from '~/content/periodgap/PeriodGapList';
 
 const currentPeriodGap : Ref<PeriodGap> = ref(PeriodGap.MONTH);
-
-definePageMeta({
-    middleware: "admin",
-});
 </script>
 
 <template>

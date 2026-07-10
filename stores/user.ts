@@ -136,7 +136,7 @@ export const useUserStore = defineStore("user", () => {
 
         clearCredentials();
 
-        await navigateTo("/auth");
+        await navigateTo("/");
     }
 
     return {

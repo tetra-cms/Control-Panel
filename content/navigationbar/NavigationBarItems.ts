@@ -3,12 +3,18 @@ import type { NavigationBarElement } from "~/types/navigationbar/NavigationBarEl
 import StatisticIcon from '~/assets/svg/statistic.svg?skipsvgo';
 import OrderIcon from '~/assets/svg/order.svg?skipsvgo';
 import ProductIcon from '~/assets/svg/product.svg?skipsvgo';
+import UsersIcon from '~/assets/svg/personal.svg?skipsvgo';
 
 export const NavigationBarItems : Array<NavigationBarElement> = [
     {
         icon: StatisticIcon,
         label: "Статистика",
         route: "/dashboard"
+    },
+    {
+        icon: UsersIcon,
+        label: "Пользователи",
+        route: "/users"
     },
     {
         icon: ProductIcon,

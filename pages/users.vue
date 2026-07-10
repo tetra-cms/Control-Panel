@@ -10,15 +10,15 @@ const { t } = useI18n();
 
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center">
-        <h2 class="w-[50%] text-[24pt] text-left font-bold">{{ $t("admin.items.title") }}</h2>
+        <h2 class="w-[50%] text-[24pt] text-left font-bold">{{ $t("admin.users.title") }}</h2>
 
         <GridList
-            endpoint="/products"
+            endpoint="/admin/users"
             :columns="[
                 { key: 'id', label: t('admin.columns.common.id') },
-                { key: 'name', label: t('admin.columns.common.name') },
-                { key: 'price', label: t('admin.columns.product.price') },
-                { key: 'category.name', label: t('admin.columns.product.category') },
+                { key: 'username', label: t('admin.columns.common.name') },
+                { key: 'email', label: t('admin.columns.user.email') },
+                { key: 'role', label: t('admin.columns.user.role') },
                 { key: 'created_at', label: t('admin.columns.common.created_at') },
             ]"
         />
