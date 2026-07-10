@@ -1,6 +1,7 @@
 <script setup>
 import { Desktop, Mobile } from "#components";
 import { useI18n } from 'vue-i18n'
+import { useUserStore } from "~/stores/user";
 
 const nuxt = useNuxtApp();
 function getDeviceInfo() {

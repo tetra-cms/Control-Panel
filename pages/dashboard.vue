@@ -10,12 +10,13 @@ import { PeriodGapList } from '~/content/periodgap/PeriodGapList';
 
 const currentPeriodGap : Ref<PeriodGap> = ref(PeriodGap.MONTH);
 
-
+definePageMeta({
+    middleware: "admin",
+});
 </script>
 
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center sm:ml-[270px]">
-
             <div class="flex flex-row">
                 <h2 class="text-[24pt] font-bold">{{ $t("admin.dashboard.title") }}</h2>
                 <ItemsList
@@ -25,7 +26,6 @@ const currentPeriodGap : Ref<PeriodGap> = ref(PeriodGap.MONTH);
                     />
             </div>
             
-
             <div class="flex flex-col sm:flex-row">
                 <StatBlock
                     class="my-[20px] sm:mx-[20px]"
@@ -43,9 +43,5 @@ const currentPeriodGap : Ref<PeriodGap> = ref(PeriodGap.MONTH);
                     :period="currentPeriodGap"
                     />
             </div>
-
-            <GridList 
-                
-                />
     </div>
 </template>

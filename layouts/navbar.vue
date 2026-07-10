@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import NagivationBar from '~/components/navigationbar/NagivationBar.vue';
 import { NavigationBarItems } from '~/content/navigationbar/NavigationBarItems';
-
-useRedirectUnauthorized();
 </script>
 
 <template>
