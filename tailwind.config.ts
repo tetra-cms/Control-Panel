@@ -8,26 +8,12 @@ module.exports = {
                 },
                 'secondary': {
                     'primary': '#FFFFFF',
-                    'secondary': '#F9F8F8',
-                    'light': '#EFEFEF',
+                    'light': '#eeeeee',
+                    'darklight': '#e7e7e7',
                     'wrapper': {
                         'dark': '#000000',
-                        'light': '#959595'
-                    }
-                },
-                'tomato': {
-                    'primary': '#DA0404',
-                    'secondary': '#C70000'
-                },
-                'dark': {
-                    'secondary': {
-                        'primary': '#000000',
-                        'secondary': '',
-                        'light': '',
-                        'wrapper': {
-                            'dark': '#FFFFFF',
-                            'light': ''
-                        }
+                        'invert': '#ffffff',
+                        'light': '#b9b9b9'
                     }
                 }
             },
