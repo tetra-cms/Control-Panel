@@ -14,6 +14,9 @@ function getDeviceInfo() {
 
 provide("deviceType", getDeviceInfo());
 
+const userStore = useUserStore();
+userStore.loadCredentials();
+
 const { t } = useI18n()
 useHead({
     title: t("admin.header.title"),
