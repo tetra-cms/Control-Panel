@@ -10,6 +10,7 @@ import type IFormElement from '~/types/form/FormField';
 const props = defineProps<{
     title: string,
     subtitle?: string,
+    textLabels?: boolean,
     fields: Array<IFormElement>
 }>();
 
@@ -34,8 +35,7 @@ const deviceType = inject('deviceType');
 
 <template>
     <form
-        class="rounded-[10px] p-[40px] w-full max-w-[400px]"
-        :class="deviceType == UserDeviceTypes.Desktop ? 'border-secondary-wrapper-light border-[1px]' : ''"
+        :class="(deviceType == UserDeviceTypes.Desktop ? 'border-secondary-wrapper-light border-[1px]' : '') + ' ' + ($attrs.class ?? 'rounded-[10px] p-[40px] w-full max-w-[400px]')"
         @submit.prevent="onSubmit">
 
         <h2 class="text-[24px] text-center font-bold mb-[10px]">{{ title }}</h2>
@@ -43,13 +43,23 @@ const deviceType = inject('deviceType');
 
         <ul>
             <li class="my-[20px]" v-for="field in props.fields">
+                <label v-if="props.textLabels && field.type !== FieldType.Button">
+                    {{ field.placeholder }}
+                </label>
+
                 <input
                     v-if="field.type != FieldType.Button 
                     && field.type != FieldType.Link"
                     :name="field.name"
                     class="w-full px-[10px] py-[5px] border-secondary-wrapper-light border-[1px] rounded-[5px]"
                     :type="getFieldType(field.type)" 
-                    :placeholder="field.placeholder">
+                    :placeholder="!props.textLabels ? field.placeholder : ''">
+
+                <select v-if="field.type == FieldType.List">
+                    <option v-for="item in field.listItems">
+                        {{ item.label }}
+                    </option>
+                </select>
 
                 <button 
                     v-if="field.type == FieldType.Button"

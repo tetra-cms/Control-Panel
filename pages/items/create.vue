@@ -1,0 +1,56 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+import type ApiProductInfo from '~/types/api/ApiProductInfo';
+import type IFormElement from '~/types/form/FormField';
+import { FieldType } from '~/types/form/FormField';
+
+definePageMeta({
+  layout: 'navbar'
+});
+
+const { t } = useI18n();
+
+const productFields : Array<IFormElement> = [
+    {
+        name: "name",
+        placeholder: t("admin.columns.common.name"),
+        type: FieldType.Input
+    } as IFormElement,
+    {
+        name: "price",
+        placeholder: t("admin.columns.product.price"),
+        type: FieldType.Input
+    } as IFormElement,
+    {
+        name: "supply_quantum",
+        placeholder: t("admin.columns.product.supply_quantum"),
+        type: FieldType.Input
+    } as IFormElement,
+    {
+        name: "stock",
+        placeholder: t("admin.columns.product.stock"),
+        type: FieldType.Input
+    } as IFormElement,
+    {
+        name: "submit",
+        placeholder: t("admin.items.create_button"),
+        type: FieldType.Button
+    } as IFormElement,
+]
+
+async function createProduct(productInfo: ApiProductInfo) {
+    
+}
+</script>
+
+<template>
+    <div class="w-full h-full flex flex-col justify-center items-center">
+        <CustomForm
+            :title="$t('admin.items.create_title')"
+            :fields="productFields"
+            :text-labels="true"
+            class="w-[50%] bg-secondary-primary shadow-lg rounded-[10px] p-[40px]"
+            @submitinfo="createProduct"
+            />
+    </div>
+</template>
