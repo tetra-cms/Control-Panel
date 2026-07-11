@@ -16,7 +16,7 @@ const { t } = useI18n();
             endpoint="/admin/users"
             :columns="[
                 { key: 'id', label: t('admin.columns.common.id') },
-                { key: 'username', label: t('admin.columns.common.name') },
+                { key: 'username', label: t('admin.columns.user.username') },
                 { key: 'email', label: t('admin.columns.user.email') },
                 { key: 'role', label: t('admin.columns.user.role') },
                 { key: 'created_at', label: t('admin.columns.common.created_at') },
