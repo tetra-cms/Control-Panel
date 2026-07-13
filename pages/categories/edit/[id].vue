@@ -21,28 +21,31 @@ const category = await categoriesApi.getById(Number(route.params.id));
 const categoryFields : Array<IFormElement> = [
     {
         name: "id",
-        placeholder: t("admin.columns.common.techinal_name"),
+        placeholder: '',
         default: category.id,
-        type: FieldType.Input
+        type: FieldType.Hidden
     } as IFormElement,
     {
         name: "name",
         placeholder: t("admin.columns.common.techinal_name"),
+        default: category.name,
         type: FieldType.Input
     } as IFormElement,
     {
         name: "title",
         placeholder: t("admin.columns.common.name"),
+        default: category.title,
         type: FieldType.Input
     } as IFormElement,
     {
         name: "icon_url",
         placeholder: t("admin.columns.common.icon_name"),
+        default: category.icon_url,
         type: FieldType.Input
     } as IFormElement,
     {
         name: "submit",
-        placeholder: t("admin.categories.create_button"),
+        placeholder: t("admin.categories.edit_button"),
         type: FieldType.Button
     } as IFormElement,
 ]
@@ -62,13 +65,13 @@ async function editCategory(categoryInfo: ApiCategoryInfo): Promise<boolean> {
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center">
         <div class="w-[50%] my-[20px]">
-            <NuxtLink class="font-bold" to="/items">
-                {{ $t("admin.items.back_button") }}
+            <NuxtLink class="font-bold" to="/categories">
+                {{ $t("admin.categories.back_button") }}
             </NuxtLink>
         </div>
 
         <CustomForm
-            :title="$t('admin.items.create_title')"
+            :title="$t('admin.categories.edit_title')"
             :fields="categoryFields"
             :text-labels="true"
             class="w-[50%] bg-secondary-primary shadow-lg rounded-[10px] p-[40px] border-none"

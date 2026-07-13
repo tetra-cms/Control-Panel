@@ -94,7 +94,7 @@ async function editProduct(productInfo: ApiProductInfo): Promise<boolean> {
         </div>
 
         <CustomForm
-            :title="$t('admin.items.create_title')"
+            :title="$t('admin.items.edit_title')"
             :fields="productFields"
             :text-labels="true"
             class="w-[50%] bg-secondary-primary shadow-lg rounded-[10px] p-[40px] border-none"

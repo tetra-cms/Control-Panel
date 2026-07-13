@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { useProductApi } from '~/composables/Api/useProductApi';
 import type ApiProductInfo from '~/types/api/ApiProductInfo';
 
 definePageMeta({
@@ -11,6 +12,23 @@ const { t } = useI18n();
 import PencilIcon from '~/assets/svg/pencil.svg';
 import TrashIcon from '~/assets/svg/trash.svg';
 
+const productsApi = useProductApi();
+
+const isModalOpen = ref(false);
+const deletionProduct = ref<ApiProductInfo>();
+
+function proceedDeletion()
+{
+    productsApi.remove(Number(deletionProduct.value?.id));
+    isModalOpen.value = false;
+}
+
+function cancelDeletion()
+{
+    deletionProduct.value = {} as ApiProductInfo;
+    isModalOpen.value = false;
+}
+
 const actions = [
     {
         icon: PencilIcon,
@@ -19,9 +37,10 @@ const actions = [
     },
     {
         icon: TrashIcon,
-        title: t("common.actions.delete"),
+        title: t("common.actions.remove"),
         callback: (product: ApiProductInfo) => {
-            
+            deletionProduct.value = product;
+            isModalOpen.value = true;
         },
     },
 ];
@@ -36,6 +55,34 @@ const actions = [
                 {{ $t("admin.items.create_button") }}
             </NuxtLink>
         </div>
+
+        <ModalWindow :title="t('admin.items.remove_button')" v-model="isModalOpen">
+            <div class="my-[10px]">
+                <p>
+                    {{ $t("common.delete_confirmaiton") + ' «' + deletionProduct?.name + '»?' }}
+                </p>
+
+                <p>
+                    {{ $t("common.undone_action") }}
+                </p>
+            </div>
+
+            <div class="flex flex-row mt-[10px] justify-between">
+                <button
+                    class="text-secondary-primary bg-red-600 px-[15px] py-[10px] rounded-[10px]"
+                    @click.prevent="proceedDeletion"
+                >
+                    {{ $t("common.actions.remove") }}
+                </button>
+
+                <button
+                    class=""
+                    @click.prevent="cancelDeletion"
+                >
+                    {{ $t("common.actions.cancel") }}
+                </button>
+            </div>
+        </ModalWindow>
 
         <GridList
             endpoint="/products"
