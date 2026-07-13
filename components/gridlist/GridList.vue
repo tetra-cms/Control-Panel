@@ -2,6 +2,10 @@
 interface Column {
     key: string;
     label: string;
+    formatter?: (
+        value: any,
+        item: Record<string, any>,
+    ) => string | number | boolean | null | undefined;
 }
 
 interface Pagination {
@@ -16,10 +20,19 @@ interface ApiResponse {
     pagination: Pagination;
 }
 
+interface TableAction {
+    icon: Component;
+    callback: (item: Record<string, any>) => void;
+    title?: string;
+    class?: string;
+    show?: (item: Record<string, any>) => boolean;
+}
+
 const props = defineProps<{
     endpoint: string;
     columns: Column[];
     perPage?: number;
+    actions?: TableAction[];
 }>();
 
 const api = useApi();
@@ -36,6 +49,20 @@ const pagination = ref<Pagination>({
 });
 
 let timeout: ReturnType<typeof setTimeout> | null = null;
+
+function getValueByPath(obj: Record<string, any>, path: string) {
+    return path
+        .split(".")
+        .reduce((current, key) => current?.[key], obj);
+}
+
+function getColumnValue(item: Record<string, any>, column: Column) {
+    const value = getValueByPath(item, column.key);
+
+    return column.formatter
+        ? column.formatter(value, item)
+        : value;
+}
 
 async function load() {
     loading.value = true;
@@ -102,9 +129,7 @@ function nextPage() {
         <table class="w-full text-center">
 
             <thead>
-
                 <tr>
-
                     <th
                         v-for="column in columns"
                         :key="column.key"
@@ -112,35 +137,35 @@ function nextPage() {
                     >
                         {{ column.label }}
                     </th>
-
+                    <th
+                        v-if="actions?.length"
+                        class="pb-3"
+                    >
+                        {{ $t("admin.columns.common.actions") }}
+                    </th>
                 </tr>
-
             </thead>
 
             <tbody>
 
                 <tr v-if="loading">
-
                     <td
-                        :colspan="columns.length"
+                        :colspan="columns.length + (actions?.length ? 1 : 0)"
                         class="py-6"
                     >
                         {{ $t("admin.common.loading") }}
                     </td>
-
                 </tr>
 
                 <tr
                     v-else-if="items.length === 0"
                 >
-
                     <td
                         :colspan="columns.length"
                         class="py-6"
                     >
                         {{ $t("admin.errors.no_data") }}
                     </td>
-
                 </tr>
 
                 <tr
@@ -148,17 +173,33 @@ function nextPage() {
                     :key="item.id"
                     class="border-t border-secondary-secondary"
                 >
-
                     <td
                         v-for="column in columns"
                         :key="column.key"
                         class="py-3"
                     >
-                        {{ item[column.key] }}
+                        {{ getColumnValue(item, column) }}
                     </td>
 
+                    <td
+                        v-if="actions?.length"
+                        class="py-3"
+                    >
+                        <div class="flex justify-center gap-2">
+                            <button
+                                v-for="(action, index) in actions"
+                                :key="index"
+                                v-show="!action.show || action.show(item)"
+                                :title="action.title"
+                                :class="action.class"
+                                class="transition hover:opacity-70"
+                                @click="action.callback(item)"
+                            >
+                                <component :is="action.icon" class="h-5 w-5" />
+                            </button>
+                        </div>
+                    </td>
                 </tr>
-
             </tbody>
 
         </table>

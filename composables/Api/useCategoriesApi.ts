@@ -10,6 +10,8 @@ export const useCategoriesApi = () => {
                 query,
             }),
 
+        getById: (id: number) => api<ApiCategoryInfo>(`/categories/${id}`),
+
         getFormItems: async (): Promise<IFormElementListItem[]> => {
             const categories = await api<ApiCategoryInfo[]>("/categories");
 

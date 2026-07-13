@@ -17,7 +17,7 @@ const props = defineProps<{
 function getFieldType(type: FieldType)
 {
     switch(type) {
-        case FieldType.Hidden: return "value";
+        case FieldType.Hidden: return "hidden";
         case FieldType.InputPassword: return "password";
         case FieldType.InputEmail: return "email";    
 
@@ -44,7 +44,9 @@ const deviceType = inject('deviceType');
 
         <ul>
             <li class="my-[20px]" v-for="field in props.fields">
-                <label v-if="props.textLabels && field.type !== FieldType.Button">
+                <label v-if="props.textLabels 
+                && field.type !== FieldType.Button
+                && field.type !== FieldType.Hidden">
                     {{ field.placeholder }}
                 </label>
 
@@ -73,7 +75,7 @@ const deviceType = inject('deviceType');
                     v-if="field.type == FieldType.List"
                     :id="field.name"
                     :name="field.name">
-                    <option :value="item.value" v-for="item in field.listItems">
+                    <option :value="item.value" v-for="item in field.listItems" :selected="item.value == field.default">
                         {{ item.label }}
                     </option>
                 </select>

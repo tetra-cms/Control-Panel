@@ -2,8 +2,7 @@
 import { useI18n } from 'vue-i18n';
 
 import { useCategoriesApi } from '~/composables/Api/useCategoriesApi';
-import { useProductApi } from '~/composables/Api/useProductApi';
-import type ApiProductInfo from '~/types/api/ApiProductInfo';
+import type ApiCategoryInfo from '~/types/api/ApiCategoryInfo';
 
 import type IFormElement from '~/types/form/FormField';
 import { FieldType } from '~/types/form/FormField';
@@ -14,53 +13,44 @@ definePageMeta({
 
 const { t } = useI18n();
 
-const categoriesApi = useCategoriesApi();
-const categories = await categoriesApi.getFormItems();
+const route = useRoute();
 
-const productFields : Array<IFormElement> = [
+const categoriesApi = useCategoriesApi();
+const category = await categoriesApi.getById(Number(route.params.id));
+
+const categoryFields : Array<IFormElement> = [
+    {
+        name: "id",
+        placeholder: t("admin.columns.common.techinal_name"),
+        default: category.id,
+        type: FieldType.Input
+    } as IFormElement,
     {
         name: "name",
+        placeholder: t("admin.columns.common.techinal_name"),
+        type: FieldType.Input
+    } as IFormElement,
+    {
+        name: "title",
         placeholder: t("admin.columns.common.name"),
         type: FieldType.Input
     } as IFormElement,
     {
-        name: "description",
-        placeholder: t("admin.columns.product.description"),
-        type: FieldType.TextArea
-    } as IFormElement,
-    {
-        name: "category_id",
-        placeholder: t("admin.columns.product.category"),
-        type: FieldType.List,
-        listItems: categories
-    } as IFormElement,
-    {
-        name: "price",
-        placeholder: t("admin.columns.product.price"),
-        type: FieldType.Input
-    } as IFormElement,
-    {
-        name: "supply_quantum",
-        placeholder: t("admin.columns.product.supply_quantum"),
-        type: FieldType.Input
-    } as IFormElement,
-    {
-        name: "stock",
-        placeholder: t("admin.columns.product.stock"),
+        name: "icon_url",
+        placeholder: t("admin.columns.common.icon_name"),
         type: FieldType.Input
     } as IFormElement,
     {
         name: "submit",
-        placeholder: t("admin.items.create_button"),
+        placeholder: t("admin.categories.create_button"),
         type: FieldType.Button
     } as IFormElement,
 ]
 
-const productApi = useProductApi();
-async function createProduct(productInfo: ApiProductInfo): Promise<boolean> {
+async function editCategory(categoryInfo: ApiCategoryInfo): Promise<boolean> {
     try {
-        await productApi.create(productInfo);
-        await navigateTo("/items")
+        await categoriesApi.update(categoryInfo.id ?? 0, categoryInfo);
+        await navigateTo("/categories")
         return true;
     } catch (error) {
         console.error(error);
@@ -79,10 +69,10 @@ async function createProduct(productInfo: ApiProductInfo): Promise<boolean> {
 
         <CustomForm
             :title="$t('admin.items.create_title')"
-            :fields="productFields"
+            :fields="categoryFields"
             :text-labels="true"
             class="w-[50%] bg-secondary-primary shadow-lg rounded-[10px] p-[40px] border-none"
-            @submitinfo="createProduct"
+            @submitinfo="editCategory"
             />
     </div>
 </template>

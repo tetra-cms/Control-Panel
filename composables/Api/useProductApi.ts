@@ -1,4 +1,4 @@
-import type ApiProductInfo from "~/types/api/ApiCategoryInfo";
+import type ApiProductInfo from "~/types/api/ApiProductInfo";
 
 export const useProductApi = () => {
     const api = useApi();
@@ -8,6 +8,8 @@ export const useProductApi = () => {
             api("/products", {
                 query,
             }),
+
+        getById: (id: number) => api<ApiProductInfo>(`/products/${id}`),
 
         create: (data: ApiProductInfo) =>
             api("/employee/products", {

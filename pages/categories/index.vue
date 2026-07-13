@@ -1,11 +1,30 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import type ApiCategoryInfo from '~/types/api/ApiCategoryInfo';
 
 definePageMeta({
   layout: 'navbar'
 });
 
 const { t } = useI18n();
+
+import PencilIcon from '~/assets/svg/pencil.svg';
+import TrashIcon from '~/assets/svg/trash.svg';
+
+const actions = [
+    {
+        icon: PencilIcon,
+        title: t("common.actions.edit"),
+        callback: (category: ApiCategoryInfo) => navigateTo(`/categories/edit/${category.id}`),
+    },
+    {
+        icon: TrashIcon,
+        title: t("common.actions.delete"),
+        callback: (category: ApiCategoryInfo) => {
+            
+        },
+    },
+];
 </script>
 
 <template>

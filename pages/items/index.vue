@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import type ApiProductInfo from '~/types/api/ApiProductInfo';
 
 definePageMeta({
   layout: 'navbar'
@@ -7,6 +8,23 @@ definePageMeta({
 
 const { t } = useI18n();
 
+import PencilIcon from '~/assets/svg/pencil.svg';
+import TrashIcon from '~/assets/svg/trash.svg';
+
+const actions = [
+    {
+        icon: PencilIcon,
+        title: t("common.actions.edit"),
+        callback: (product: ApiProductInfo) => navigateTo(`/items/edit/${product.id}`),
+    },
+    {
+        icon: TrashIcon,
+        title: t("common.actions.delete"),
+        callback: (product: ApiProductInfo) => {
+            
+        },
+    },
+];
 </script>
 
 <template>
@@ -26,10 +44,23 @@ const { t } = useI18n();
                 { key: 'name', label: t('admin.columns.common.name') },
                 { key: 'price', label: t('admin.columns.product.price') },
                 { key: 'supply_quantum', label: t('admin.columns.product.supply_quantum') },
-                { key: 'stock', label: t('admin.columns.product.stock') },
-                { key: 'category.name', label: t('admin.columns.product.category') },
-                { key: 'created_at', label: t('admin.columns.common.created_at') },
+                { key: 'stock', label: t('admin.columns.product.stock'), formatter: value => value == -1 ? t('common.infinity') : value },
+                { key: 'category.title', label: t('admin.columns.product.category') },
+                { 
+                    key: 'created_at', 
+                    label: t('admin.columns.common.created_at'), 
+                    formatter: (value: string) => {
+                        if (!value) {
+                            return t('common.none')
+                        }
+
+                        const date = new Date(value);
+                        const pad = (num: number) => String(num).padStart(2, '0');
+                        return `${pad(date.getHours())}:${pad(date.getMinutes())} ${pad(date.getDate())}-${pad(date.getMonth() + 1)}-${date.getFullYear()}`;
+                    }
+                },
             ]"
+            :actions="actions"
         />
     </div>
 </template>
