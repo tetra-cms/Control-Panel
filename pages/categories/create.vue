@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { useCategoriesApi } from '~/composables/Api/useCategoriesApi';
 import type ApiCategoryInfo from '~/types/api/ApiCategoryInfo';
 import type IFormElement from '~/types/form/FormField';
 import { FieldType } from '~/types/form/FormField';
@@ -28,24 +29,38 @@ const categoryFields : Array<IFormElement> = [
     } as IFormElement,
     {
         name: "submit",
-        placeholder: t("admin.items.create_button"),
+        placeholder: t("admin.categories.create_button"),
         type: FieldType.Button
     } as IFormElement,
 ]
 
-async function createCategory(categoryInfo: ApiCategoryInfo) {
-    
+const categoriesApi = useCategoriesApi();
+async function createCategory(categoryInfo: ApiCategoryInfo): Promise<boolean> {
+    try {
+        await categoriesApi.create(categoryInfo);
+        await navigateTo("/categories")
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
 }
 </script>
 
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center">
+        <div class="w-[50%] my-[20px]">
+            <NuxtLink class="font-bold" to="/categories">
+                {{ $t("admin.categories.back_button") }}
+            </NuxtLink>
+        </div>
+            
         <CustomForm
-            :title="$t('admin.items.create_title')"
+            :title="$t('admin.categories.create_title')"
             :fields="categoryFields"
             :text-labels="true"
-            class="w-[50%] bg-secondary-primary shadow-lg rounded-[10px] p-[40px]"
+            class="w-[50%] bg-secondary-primary shadow-lg rounded-[10px] p-[40px] border-none"
             @submitinfo="createCategory"
-            />
+        />
     </div>
 </template>

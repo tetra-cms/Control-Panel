@@ -1,5 +1,9 @@
+import type IFormElementListItem from "./IFormElementListItem"
+
 export enum FieldType {
+    Hidden,
     Input,
+    TextArea,
     InputPassword,
     InputEmail,
     Link, 
@@ -7,15 +11,11 @@ export enum FieldType {
     List
 }
 
-export default interface IFormElementListItem {
-    label: string,
-    value: string
-}
-
 export default interface IFormElement {
     name: string,
     placeholder: string,
     type: FieldType,
+    default?: string,
     listItems?: Array<IFormElementListItem>
     route?: string
 }

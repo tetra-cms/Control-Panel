@@ -17,6 +17,7 @@ const props = defineProps<{
 function getFieldType(type: FieldType)
 {
     switch(type) {
+        case FieldType.Hidden: return "value";
         case FieldType.InputPassword: return "password";
         case FieldType.InputEmail: return "email";    
 
@@ -47,16 +48,32 @@ const deviceType = inject('deviceType');
                     {{ field.placeholder }}
                 </label>
 
+
+                <textarea 
+                    v-if="field.type == FieldType.TextArea"
+                    class="w-full px-[10px] py-[5px] border-secondary-wrapper-light border-[1px] rounded-[5px]"
+                    :name="field.name"
+                    :placeholder="!props.textLabels ? field.placeholder : ''"
+                    :value="field.default ?? ''">
+                </textarea>
+
                 <input
-                    v-if="field.type != FieldType.Button 
-                    && field.type != FieldType.Link"
+                    v-if="field.type == FieldType.Input 
+                    || field.type == FieldType.InputEmail 
+                    || field.type == FieldType.InputPassword
+                    || field.type == FieldType.Hidden"
                     :name="field.name"
                     class="w-full px-[10px] py-[5px] border-secondary-wrapper-light border-[1px] rounded-[5px]"
                     :type="getFieldType(field.type)" 
-                    :placeholder="!props.textLabels ? field.placeholder : ''">
+                    :placeholder="!props.textLabels ? field.placeholder : ''"
+                    :value="field.default ?? ''">
 
-                <select v-if="field.type == FieldType.List">
-                    <option v-for="item in field.listItems">
+                <select 
+                    class="w-full px-[10px] py-[5px] border-secondary-wrapper-light border-[1px] rounded-[5px]"
+                    v-if="field.type == FieldType.List"
+                    :id="field.name"
+                    :name="field.name">
+                    <option :value="item.value" v-for="item in field.listItems">
                         {{ item.label }}
                     </option>
                 </select>

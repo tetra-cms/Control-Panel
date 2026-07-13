@@ -11,7 +11,13 @@ const { t } = useI18n();
 
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center">
-        <h2 class="w-[50%] text-[24pt] text-left font-bold">{{ $t("admin.items.title") }}</h2>
+        <div class="flex flex-row justify-between items-center w-[50%]">
+            <h2 class="text-[24pt] text-left font-bold">{{ $t("admin.items.title") }}</h2>
+
+            <NuxtLink to="/items/create">
+                {{ $t("admin.items.create_button") }}
+            </NuxtLink>
+        </div>
 
         <GridList
             endpoint="/products"
