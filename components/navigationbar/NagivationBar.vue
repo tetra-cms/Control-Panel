@@ -31,7 +31,7 @@ const groupedElements = computed(() => {
 
 <template>
     <DesktopOnly>
-        <nav class="w-[250px] fixed left-0 top-0 bottom-0 h-full shadow-lg flex justify-between rounded-[30px] flex-col items-center bg-secondary-primary mx-[20px]">
+        <nav class="w-[250px] fixed left-0 top-0 bottom-0 h-full shadow-lg flex justify-between rounded-[30px] flex-col items-center bg-secondary-primary mx-[20px] overflow-y-auto">
             <div class="w-full">
                 <NuxtLink link="../" class="p-[10px] flex flex-row items-center">
                     <TetraIcon class="w-[48px] h-[48px]"/>
@@ -39,11 +39,11 @@ const groupedElements = computed(() => {
                 </NuxtLink>
                 <p class="text-[12pt] w-full pl-[20px] pt-[20px] text-secondary-wrapper-light">{{ $t("admin.menu.title") }}</p>
 
-                <div class="py-[10px]">
+                <div class="py-[10px] ">
                     <template v-for="group in groupedElements" :key="group.category">
                         <p
                             v-if="group.category"
-                            class="px-[20px] pb-[8px] pt-[16px] text-[10pt] font-medium uppercase text-secondary-wrapper-light"
+                            class="px-[20px] pb-[5px] pt-[5px] text-[10pt] font-medium uppercase text-secondary-wrapper-light"
                         >
                             {{ group.category }}
                         </p>
