@@ -1,12 +1,32 @@
 <script setup lang="ts">
-import type { NavigationBarElement } from '~/types/navigationbar/NavigationBarElement';
+import { computed } from "vue";
+import type { NavigationBarElement } from "~/types/navigationbar/NavigationBarElement";
 
-import TetraIcon from '~/assets/svg/tetra-icon.svg?skipsvgo';
-import LeaveIcon from '~/assets/svg/leave.svg?skipsvgo';
+import TetraIcon from "~/assets/svg/tetra-icon.svg?skipsvgo";
+import LeaveIcon from "~/assets/svg/leave.svg?skipsvgo";
 
 const props = defineProps<{
-    elements: Array<NavigationBarElement>
+    elements: NavigationBarElement[]
 }>();
+
+const groupedElements = computed(() => {
+    const groups: Record<string, NavigationBarElement[]> = {};
+
+    for (const element of props.elements) {
+        const category = element.category ?? "";
+
+        if (!groups[category]) {
+            groups[category] = [];
+        }
+
+        groups[category].push(element);
+    }
+
+    return Object.entries(groups).map(([category, elements]) => ({
+        category,
+        elements
+    }));
+});
 </script>
 
 <template>
@@ -19,16 +39,49 @@ const props = defineProps<{
                 </NuxtLink>
                 <p class="text-[12pt] w-full pl-[20px] pt-[20px] text-secondary-wrapper-light">{{ $t("admin.menu.title") }}</p>
 
-                <ul class="flex w-full flex-col justify-center py-[20px]">
-                    <li v-for="navbarItem in props.elements" :class="'w-full rounded-[15px] p-[15px] px-[20px] transition-all duration-300 ' + (navbarItem.route == $route.path ? 'bg-secondary-wrapper-dark' : '[&>*]:fill-secondary-wrapper-dar hover:bg-secondary-wrapper-light')">
-                        <NuxtLink :to="navbarItem.route" class="flex justify-start flex-row items-center">
-                            <component 
-                            :class="'w-[32px] h-[32px] mr-[5px] ' + (navbarItem.route == $route.path ? '[&>*]:fill-secondary-wrapper-invert' : '[&>*]:fill-secondary-wrapper-dark')" :is="navbarItem.icon"/>
-                            <p 
-                            :class="'text-[12pt] ' + (navbarItem.route == $route.path ? 'text-secondary-wrapper-invert' : 'text-secondary-wrapper-dark')">{{ navbarItem.label }}</p>
-                        </NuxtLink>
-                    </li>
-                </ul>
+                <div class="py-[10px]">
+                    <template v-for="group in groupedElements" :key="group.category">
+                        <p
+                            v-if="group.category"
+                            class="px-[20px] pb-[8px] pt-[16px] text-[10pt] font-medium uppercase text-secondary-wrapper-light"
+                        >
+                            {{ group.category }}
+                        </p>
+
+                        <ul class="flex w-full flex-col justify-center">
+                            <li
+                                v-for="navbarItem in group.elements"
+                                :key="navbarItem.route"
+                                :class="'w-full rounded-[15px] p-[15px] px-[20px] transition-all duration-300 ' +
+                                    (navbarItem.route == $route.path
+                                        ? 'bg-secondary-wrapper-dark'
+                                        : 'hover:bg-secondary-wrapper-light')"
+                            >
+                                <NuxtLink
+                                    :to="navbarItem.route"
+                                    class="flex justify-start flex-row items-center"
+                                >
+                                    <component
+                                        :is="navbarItem.icon"
+                                        :class="'w-[32px] h-[32px] mr-[5px] ' +
+                                            (navbarItem.route == $route.path
+                                                ? '[&>*]:fill-secondary-wrapper-invert'
+                                                : '[&>*]:fill-secondary-wrapper-dark')"
+                                    />
+
+                                    <p
+                                        :class="'text-[12pt] ' +
+                                            (navbarItem.route == $route.path
+                                                ? 'text-secondary-wrapper-invert'
+                                                : 'text-secondary-wrapper-dark')"
+                                    >
+                                        {{ navbarItem.label }}
+                                    </p>
+                                </NuxtLink>
+                            </li>
+                        </ul>
+                    </template>
+                </div>
             </div>
             
             <a href="/" class="flex flex-row items-center mb-[10px]">
