@@ -12,7 +12,6 @@ const { t } = useI18n();
 import PencilIcon from '~/assets/svg/pencil.svg';
 import TrashIcon from '~/assets/svg/trash.svg';
 
-
 const contentApi = useContentApi();
 
 const isModalOpen = ref(false);
