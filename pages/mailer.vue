@@ -66,7 +66,7 @@ const configurationFields: Array<IFormElement> = [
     },
     {
         name: "submit",
-        placeholder: t("admin.content.edit_button"),
+        placeholder: t("common.actions.save_changes"),
         type: FieldType.Button,
     },
 ];

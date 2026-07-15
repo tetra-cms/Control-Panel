@@ -5,16 +5,16 @@ export const useMailConfigurationApi = () => {
 
     return {
         get: () =>
-            api<ApiMailConfiguration>("/mail/configuration"),
+            api<ApiMailConfiguration>("/admin/mail/configuration"),
 
         update: (data: ApiMailConfiguration) =>
-            api("/mail/configuration", {
+            api("/admin/mail/configuration", {
                 method: "PUT",
                 body: data,
             }),
 
         test: (email: string) =>
-            api("/mail/configuration/test", {
+            api("/admin/mail/configuration/test", {
                 method: "POST",
                 body: {
                     email,
