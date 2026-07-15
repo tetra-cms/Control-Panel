@@ -80,6 +80,25 @@ const deviceType = inject('deviceType');
                     </option>
                 </select>
 
+                <label
+                    v-if="field.type == FieldType.Checkbox"
+                    class="flex items-start gap-2 cursor-pointer">
+
+                    <input
+                        type="checkbox"
+                        :name="field.name"
+                        :checked="field.checked ?? false"
+                        class="mt-1">
+
+                    <span>
+                        <slot
+                            :name="field.name + '-label'"
+                            :field="field">
+                            {{ field.placeholder }}
+                        </slot>
+                    </span>
+                </label>
+
                 <button 
                     v-if="field.type == FieldType.Button"
 

@@ -8,7 +8,8 @@ export enum FieldType {
     InputEmail,
     Link, 
     Button,
-    List
+    List,
+    Checkbox
 }
 
 export default interface IFormElement {
@@ -18,4 +19,6 @@ export default interface IFormElement {
     default?: string,
     listItems?: Array<IFormElementListItem>
     route?: string
+
+    checked?: boolean
 }
