@@ -17,20 +17,14 @@ export const useOrdersApi = () => {
                 query,
             }),
 
-        create: (data: ApiOrder) =>
-            api("/admin/orders", {
-                method: "POST",
-                body: data,
-            }),
-
         update: (id: number, data: ApiOrder) =>
-            api(`/admin/orders/${id}`, {
+            api(`/employee/orders/${id}`, {
                 method: "PUT",
                 body: data,
             }),
 
         remove: (id: number) =>
-            api(`/admin/orders/${id}`, {
+            api(`/employee/orders/${id}`, {
                 method: "DELETE",
             }),
     };

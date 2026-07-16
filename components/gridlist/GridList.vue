@@ -30,6 +30,7 @@ interface TableAction {
 
 const props = defineProps<{
     endpoint: string;
+    paginationDisabled: boolean;
     columns: Column[];
     perPage?: number;
     actions?: TableAction[];
@@ -68,12 +69,19 @@ async function load() {
     loading.value = true;
 
     try {
+        let query = {
+            page: page.value,
+            perPage: pagination.value.perPage,
+            search: search.value,
+        };
+
+        if (props.paginationDisabled) 
+        {
+            query = {};
+        }
+        
         const response = await api<ApiResponse>(props.endpoint, {
-            query: {
-                page: page.value,
-                perPage: pagination.value.perPage,
-                search: search.value,
-            },
+            query: query,
         });
 
         items.value = response.data;

@@ -4,7 +4,7 @@ import { useOrdersApi } from "~/composables/Api/useOrdersApi";
 
 import type ApiOrder from "~/types/api/ApiOrder";
 
-import PencilIcon from "~/assets/svg/pencil.svg";
+import EyeIcon from "~/assets/svg/eye.svg";
 import TrashIcon from "~/assets/svg/trash.svg";
 
 definePageMeta({
@@ -35,10 +35,10 @@ function cancelDeletion() {
 
 const actions = [
     {
-        icon: PencilIcon,
-        title: t("common.actions.edit"),
+        icon: EyeIcon,
+        title: t("common.actions.view"),
         callback: (order: ApiOrder) =>
-            navigateTo(`/orders/edit/${order.id}`),
+            navigateTo(`/orders/${order.id}`),
     },
     {
         icon: TrashIcon,
@@ -53,7 +53,7 @@ const actions = [
 
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center">
-        <div class="flex flex-row justify-between items-center w-[50%]">
+        <div class="flex flex-row justify-between items-center w-[55%]">
             <h2 class="text-[24pt] font-bold">
                 {{ $t("admin.orders.title") }}
             </h2>
@@ -93,6 +93,7 @@ const actions = [
         </ModalWindow>
 
         <GridList
+            class="w-[55%]"
             endpoint="/orders"
             :columns="[
                 {
@@ -100,8 +101,12 @@ const actions = [
                     label: t('admin.columns.common.id')
                 },
                 {
-                    key: 'client',
+                    key: 'client.fcs',
                     label: t('admin.columns.order.client')
+                },
+                {
+                    key: 'client.phone',
+                    label: t('admin.columns.order.phone')
                 },
                 {
                     key: 'status',
