@@ -33,7 +33,7 @@ const actions = [
     {
         icon: PencilIcon,
         title: t("common.actions.edit"),
-        callback: (category: ApiCategoryInfo) => navigateTo(`/category/edit/${category.id}`),
+        callback: (category: ApiCategoryInfo) => navigateTo(`/categories/edit/${category.id}`),
     },
     {
         icon: TrashIcon,
