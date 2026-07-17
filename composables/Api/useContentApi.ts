@@ -21,9 +21,9 @@ export const useContentApi = () => {
                 body: data,
             }),
 
-        update: (id: number, data: ApiContent) =>
+        update: (id: number, data: FormData) =>
             api(`/admin/content/${id}`, {
-                method: "PUT",
+                method: "POST",
                 body: data,
             }),
 

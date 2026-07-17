@@ -26,7 +26,7 @@ const productFields : Array<IFormElement> = [
     {
         name: "id",
         placeholder: 'id',
-        default: product.id,
+        default: route.params.id,
         type: FieldType.Hidden
     } as IFormElement,
     {
@@ -73,9 +73,10 @@ const productFields : Array<IFormElement> = [
     } as IFormElement,
 ]
 
-async function editProduct(productInfo: ApiProductInfo): Promise<boolean> {
+async function editProduct(productInfo): Promise<boolean> {
     try {
-        await productApi.update(productInfo.id ?? 0, productInfo);
+        productInfo.append("_method", "PUT");
+        await productApi.update(Number(route.params.id), productInfo);
         await navigateTo("/items")
         return true;
     } catch (error) {

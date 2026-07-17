@@ -22,7 +22,7 @@ const categoryFields : Array<IFormElement> = [
     {
         name: "id",
         placeholder: '',
-        default: category.id,
+        default: route.params.id,
         type: FieldType.Hidden
     } as IFormElement,
     {
@@ -50,9 +50,10 @@ const categoryFields : Array<IFormElement> = [
     } as IFormElement,
 ]
 
-async function editCategory(categoryInfo: ApiCategoryInfo): Promise<boolean> {
+async function editCategory(categoryInfo): Promise<boolean> {
     try {
-        await categoriesApi.update(categoryInfo.id ?? 0, categoryInfo);
+        categoryInfo.append("_method", "PUT");
+        await categoriesApi.update(Number(route.params.id), categoryInfo);
         await navigateTo("/categories")
         return true;
     } catch (error) {

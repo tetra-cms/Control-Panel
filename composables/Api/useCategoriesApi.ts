@@ -29,7 +29,7 @@ export const useCategoriesApi = () => {
 
         update: (id: number, data: ApiCategoryInfo) =>
             api(`/admin/categories/${id}`, {
-                method: "PUT",
+                method: "POST",
                 body: data,
             }),
 

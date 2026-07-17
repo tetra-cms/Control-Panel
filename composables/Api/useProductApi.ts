@@ -17,9 +17,9 @@ export const useProductApi = () => {
                 body: data,
             }),
 
-        update: (id: number, data: ApiProductInfo) =>
+        update: (id: number, data: FormData) =>
             api(`/employee/products/${id}`, {
-                method: "PUT",
+                method: "POST",
                 body: data,
             }),
 

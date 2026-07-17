@@ -21,7 +21,7 @@ const contentFields : Array<IFormElement> = [
     {
         name: "id",
         placeholder: t("admin.columns.common.id"),
-        default: content.id,
+        default: route.params.id,
         type: FieldType.Hidden
     } as IFormElement,
     {
@@ -43,9 +43,10 @@ const contentFields : Array<IFormElement> = [
     } as IFormElement,
 ]
 
-async function editContent(content: ApiContent): Promise<boolean> {
+async function editContent(content): Promise<boolean> {
     try {
-        await contentApi.update(content.id ?? 0, content);
+        content.append("_method", "PUT");
+        await contentApi.update(Number(route.params.id), content);
         await navigateTo("/content")
         return true;
     } catch (error) {
@@ -59,12 +60,12 @@ async function editContent(content: ApiContent): Promise<boolean> {
     <div class="w-full h-full flex flex-col justify-center items-center">
         <div class="w-[50%] my-[20px]">
             <NuxtLink class="font-bold" to="/content">
-                {{ $t("admin.categories.back_button") }}
+                {{ $t("admin.content.back_button") }}
             </NuxtLink>
         </div>
 
         <CustomForm
-            :title="$t('admin.categories.edit_title')"
+            :title="$t('admin.content.edit_title')"
             :fields="contentFields"
             :text-labels="true"
             class="w-[50%] bg-secondary-primary shadow-lg rounded-[10px] p-[40px] border-none"
