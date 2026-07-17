@@ -29,6 +29,13 @@ const productFields : Array<IFormElement> = [
         type: FieldType.TextArea
     } as IFormElement,
     {
+        name: "image",
+        placeholder: t("admin.columns.product.upload-image"),
+        type: FieldType.Upload,
+        maxSize: 30,
+        extensions: ["png", "jpg", "jpeg"]
+    },
+    {
         name: "category_id",
         placeholder: t("admin.columns.product.category"),
         type: FieldType.List,
@@ -59,7 +66,8 @@ const productFields : Array<IFormElement> = [
 const productApi = useProductApi();
 async function createProduct(productInfo: ApiProductInfo): Promise<boolean> {
     try {
-        await productApi.create(productInfo);
+        const product = await productApi.create(productInfo);
+        await productApi.uploadImage(product.id, productInfo.image);
         await navigateTo("/items")
         return true;
     } catch (error) {

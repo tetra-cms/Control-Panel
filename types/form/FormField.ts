@@ -9,16 +9,20 @@ export enum FieldType {
     Link, 
     Button,
     List,
-    Checkbox
+    Checkbox,
+    Upload
 }
 
 export default interface IFormElement {
-    name: string,
-    placeholder: string,
-    type: FieldType,
-    default?: string,
+    name: string
+    placeholder: string
+    type: FieldType
+    default?: string
     listItems?: Array<IFormElementListItem>
     route?: string
 
     checked?: boolean
+
+    maxSize?: number
+    extensions?: Array<string>
 }

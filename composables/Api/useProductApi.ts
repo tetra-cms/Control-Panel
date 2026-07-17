@@ -23,6 +23,16 @@ export const useProductApi = () => {
                 body: data,
             }),
 
+        uploadImage: (id: number, file: File) => {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            return api(`/admin/products/image/${id}`, {
+                method: "POST",
+                body: formData,
+            });
+        },
+
         remove: (id: number) =>
             api(`/admin/products/${id}`, {
                 method: "DELETE",

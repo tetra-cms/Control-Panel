@@ -28,10 +28,24 @@ function getFieldType(type: FieldType)
 const emit = defineEmits(['submitinfo']);
 function onSubmit(event: SubmitEvent)
 {
-    emit("submitinfo", Object.fromEntries(new FormData(event.target as HTMLFormElement)));
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    for (const [name, file] of Object.entries(uploadedFiles.value))
+    {
+        formData.set(name, file);
+    }
+
+    emit("submitinfo", formData);
 }
 
 const deviceType = inject('deviceType');
+
+const uploadedFiles = ref<Record<string, File>>({});
+function onUpload(fieldName: string, file: File)
+{
+    uploadedFiles.value[fieldName] = file;
+}
 </script>
 
 <template>
@@ -58,6 +72,13 @@ const deviceType = inject('deviceType');
                     :placeholder="!props.textLabels ? field.placeholder : ''"
                     :value="field.default ?? ''">
                 </textarea>
+
+                <FileUpload
+                    v-if="field.type === FieldType.Upload"
+                    :max-size="field.maxSize ?? 10"
+                    :extensions="field.extensions"
+                    @fileChange="onUpload(field.name, $event)"
+                />
 
                 <input
                     v-if="field.type == FieldType.Input 
