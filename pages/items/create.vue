@@ -64,11 +64,18 @@ const productFields : Array<IFormElement> = [
 ]
 
 const productApi = useProductApi();
-async function createProduct(productInfo: ApiProductInfo): Promise<boolean> {
+async function createProduct(productInfo): Promise<boolean> {
     try {
+        const image = productInfo.get("image") as File | null;
+
         const product = await productApi.create(productInfo);
-        await productApi.uploadImage(product.id, productInfo.image);
+
+        if (image && image.size > 0) {
+            await productApi.uploadImage(product.id, image);
+        }
+
         await navigateTo("/items")
+        
         return true;
     } catch (error) {
         console.error(error);

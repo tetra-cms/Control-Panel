@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
+
 import IconCloud from '~/assets/svg/cloud.svg';
+import IconFile from '~/assets/svg/file.svg';
 
 const { t } = useI18n();
 
 const props = defineProps<{
     maxSize: number,
-    extensions?: Array<string>,
+    extensions?: string[],
     modelValue?: File | null
 }>();
 
@@ -16,7 +18,12 @@ function openFileDialog()
     fileInput.value?.click();
 }
 
-const currentFile = computed(() => props.modelValue ?? null);
+const internalFile = ref<File>();
+const currentFile = computed(() => {
+    return props.modelValue !== undefined
+        ? props.modelValue
+        : internalFile.value;
+})
 
 const emit = defineEmits<{
     (e: "update:modelValue", value: File | null): void
@@ -39,9 +46,14 @@ const onFileChange = (event: Event) => {
     {
         if (!props.extensions || (props.extensions && props.extensions.includes(String(file.name.split(".")[1]))))
         {
-            emit("update:modelValue", file);
+            if (props.modelValue !== undefined) {
+                emit("update:modelValue", file);
+            } else {
+                internalFile.value = file;
+            }
+
             emit("fileChange", file);
-            currentFile.value = file;
+            errorMessage.value = "";
         } else {
             errorMessage.value = "file-upload.errors.wrong-extension";
         }
@@ -51,7 +63,11 @@ const onFileChange = (event: Event) => {
 }
 
 function clearFile() {
-    emit("update:modelValue", null);
+    if (props.modelValue !== undefined) {
+        emit("update:modelValue", null);
+    } else {
+        internalFile.value = undefined;
+    }
 
     if (fileInput.value) {
         fileInput.value.value = "";

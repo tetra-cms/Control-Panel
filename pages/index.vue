@@ -13,15 +13,11 @@ const errorMessage = ref("");
 
 const { user } = storeToRefs(userStore);
 
-if (import.meta.client && userStore.credentials && !user.value) {
-    try {
-        await userStore.fetchUser();
-        await navigateTo("/dashboard")
-    } catch {
-        userStore.logout();
-    }
-}
-
+watchEffect(() => {
+  if (userStore.credentials && !user.value) {
+    navigateTo("/dashboard");
+  }
+});
 
 async function authUser(userData: AuthSubmitData) {
     errorMessage.value = "";
@@ -38,7 +34,7 @@ async function authUser(userData: AuthSubmitData) {
             refreshToken: response.refreshToken,
         });
 
-        await navigateTo("/dashboard");
+        navigateTo("/dashboard");
     } catch (error: any) {
         errorMessage.value =
             error?.data?.message ??

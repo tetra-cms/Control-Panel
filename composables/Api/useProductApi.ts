@@ -23,9 +23,9 @@ export const useProductApi = () => {
                 body: data,
             }),
 
-        uploadImage: (id: number, file: File) => {
+        uploadImage: (id: number, image: File) => {
             const formData = new FormData();
-            formData.append("file", file);
+            formData.append("image", image);
 
             return api(`/admin/products/image/${id}`, {
                 method: "POST",
