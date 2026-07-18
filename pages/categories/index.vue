@@ -47,7 +47,7 @@ const actions = [
 </script>
 
 <template>
-    <div class="w-full h-full flex flex-col justify-center items-center">
+    <div class="w-full min-h-screen flex flex-col items-center py-10 h-fit bg-secondary-light">
         <div class="flex flex-row justify-between items-center w-[50%]">
             <h2 class="text-[24pt] text-left font-bold">{{ $t("admin.categories.title") }}</h2>
 

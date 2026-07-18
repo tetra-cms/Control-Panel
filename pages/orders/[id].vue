@@ -34,7 +34,7 @@ async function changeStatus()
 </script>
 
 <template>
-    <div class="w-full h-full flex flex-col justify-center items-center">
+    <div class="w-full min-h-screen flex flex-col items-center py-10 h-fit bg-secondary-light">
         <div class="w-[55%] rounded-[10px] bg-secondary-primary p-5">
             <ul class="flex flex-col">
                 <li class="flex flex-row gap-[10px]">

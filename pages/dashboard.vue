@@ -12,7 +12,7 @@ const currentPeriodGap : Ref<PeriodGap> = ref(PeriodGap.MONTH);
 </script>
 
 <template>
-    <div class="w-full h-full flex flex-col justify-center items-center sm:ml-[270px]">
+    <div class="w-full min-h-[100vh] h-full flex flex-col justify-center items-center sm:ml-[270px]">
             <div class="flex flex-row">
                 <h2 class="text-[24pt] font-bold">{{ $t("admin.dashboard.title") }}</h2>
                 <ItemsList

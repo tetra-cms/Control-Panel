@@ -8,6 +8,7 @@ import { NavigationBarItems } from '~/content/navigationbar/NavigationBarItems';
       <NagivationBar
         :elements="NavigationBarItems"
         />
+      
 
       <slot/>
   </div>

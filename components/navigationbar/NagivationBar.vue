@@ -37,7 +37,6 @@ const groupedElements = computed(() => {
                     <TetraIcon class="w-[48px] h-[48px]"/>
                     <h1 class="text-[20pt] font-black">TETRA</h1>
                 </NuxtLink>
-                <p class="text-[12pt] w-full pl-[20px] pt-[20px] text-secondary-wrapper-light">{{ $t("admin.menu.title") }}</p>
 
                 <div class="py-[10px] ">
                     <template v-for="group in groupedElements" :key="group.category">
@@ -63,7 +62,7 @@ const groupedElements = computed(() => {
                                 >
                                     <component
                                         :is="navbarItem.icon"
-                                        :class="'w-[32px] h-[32px] mr-[5px] ' +
+                                        :class="'w-[24px] h-[24px] mr-[5px] ' +
                                             (navbarItem.route == $route.path
                                                 ? '[&>*]:fill-secondary-wrapper-invert'
                                                 : '[&>*]:fill-secondary-wrapper-dark')"

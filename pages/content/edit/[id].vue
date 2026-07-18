@@ -57,7 +57,7 @@ async function editContent(content): Promise<boolean> {
 </script>
 
 <template>
-    <div class="w-full h-full flex flex-col justify-center items-center">
+    <div class="w-full min-h-screen flex flex-col items-center py-10 h-fit bg-secondary-light">
         <div class="w-[50%] my-[20px]">
             <NuxtLink class="font-bold" to="/content">
                 {{ $t("admin.content.back_button") }}

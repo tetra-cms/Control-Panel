@@ -85,7 +85,7 @@ async function editConfiguration(
 </script>
 
 <template>
-    <div class="w-full h-full flex flex-col justify-center items-center">
+    <div class="w-full min-h-screen flex flex-col items-center py-10 h-fit bg-secondary-light">
         <CustomForm
             :title="$t('admin.mail.title')"
             :fields="configurationFields"
