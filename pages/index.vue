@@ -13,9 +13,13 @@ const errorMessage = ref("");
 
 const { user } = storeToRefs(userStore);
 
+const blockRender = ref<boolean>(true);
+
 watchEffect(() => {
   if (userStore.credentials && !user.value) {
     navigateTo("/dashboard");
+  } else {
+    blockRender.value = false;
   }
 });
 
@@ -46,6 +50,7 @@ async function authUser(userData: AuthSubmitData) {
 <template>
     <div class="w-full h-[80%] flex flex-col items-center justify-center">
         <CustomForm
+            v-if="!blockRender"
             :title="$t('auth.title.login')"
             :subtitle="$t('admin.auth.subtitle')"
             :fields="AuthFormFields"
