@@ -10,54 +10,56 @@ import EyeIcon from '~/assets/svg/eye.svg?skipsvgo';
 import MailIcon from '~/assets/svg/mail.svg?skipsvgo';
 import GearIcon from '~/assets/svg/gear.svg?skipsvgo';
 
+import { i18n } from '~/plugins/i18n';
+const { t } = i18n.global;
 
 export const NavigationBarItems : Array<NavigationBarElement> = [
     {
         icon: StatisticIcon,
-        label: "Статистика",
-        category: "Статистика",
+        label: t('admin.nav.items.dashboard'),
+        category: t('admin.nav.category.statistic'),
         route: "/dashboard"
     },
     {
         icon: ProductIcon,
-        label: "Товары",
-        category: "Товары",
+        label: t('admin.nav.items.products'),
+        category: t('admin.nav.category.products'),
         route: "/items"
     },
     {
         icon: WrenchIcon,
-        label: "Категории товаров",
-        category: "Товары",
+        label: t('admin.nav.items.categories-products'),
+        category: t('admin.nav.category.products'),
         route: "/categories"
     },
     {
         icon: OrderIcon,
-        label: "Заказы",
-        category: "Отчёты",
+        label: t('admin.nav.items.orders'),
+        category: t('admin.nav.category.reports'),
         route: "/orders"
     },
     {
         icon: UsersIcon,
-        label: "Пользователи",
-        category: "Система",
+        label: t('admin.nav.items.users'),
+        category: t('admin.nav.category.system'),
         route: "/users"
     },
     {
         icon: EyeIcon,
-        label: "Страницы контента",
-        category: "Система",
+        label: t('admin.nav.items.content-pages'),
+        category: t('admin.nav.category.system'),
         route: "/content/"
     },
     {
         icon: MailIcon,
-        label: "Рассылка",
-        category: "Система",
+        label: t('admin.nav.items.mailer'),
+        category: t('admin.nav.category.system'),
         route: "/mailer"
     },
     {
         icon: GearIcon,
-        label: "Настройки",
-        category: "Система",
+        label: t('admin.nav.items.settings'),
+        category: t('admin.nav.category.system'),
         route: "/settings"
     },
 ]
